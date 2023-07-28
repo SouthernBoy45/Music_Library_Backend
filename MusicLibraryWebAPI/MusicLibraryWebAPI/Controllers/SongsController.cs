@@ -8,11 +8,11 @@ namespace MusicLibraryWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MusicLibrariesController : ControllerBase
+    public class SongsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public MusicLibrariesController(ApplicationDbContext context)
+        public SongsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -20,21 +20,26 @@ namespace MusicLibraryWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var musicLibrary = _context.MusicLibraries.ToList();
-            return Ok(musicLibrary);
+            var songs = _context.MusicLibraries.ToList();
+            return Ok(songs);
         }
 
         // GET api/<MusicLibraries>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var musicLibrary = _context.MusicLibraries.ToList();
-            return Ok(musicLibrary);
+            var song = _context.MusicLibraries.Find(id);
+
+                if (song == null)
+                {
+                return NotFound();
+                }
+            return Ok(song);
         }
 
         // POST api/<MusicLibrariesController>
         [HttpPost]
-        public IActionResult Post([FromBody] MusicLibrary musicLibrary)
+        public IActionResult Post([FromBody] Song musicLibrary)
         {
             _context.MusicLibraries.Add(musicLibrary);
             _context.SaveChanges();

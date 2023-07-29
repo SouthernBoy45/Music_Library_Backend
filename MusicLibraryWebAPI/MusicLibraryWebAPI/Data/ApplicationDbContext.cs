@@ -5,7 +5,7 @@ namespace MusicLibraryWebAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<MusicLibrary> MusicLibraries { get; set; }
+        public DbSet<Song> MusicLibraries { get; set; }
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
 

@@ -2,7 +2,7 @@
 
 namespace MusicLibraryWebAPI.Models
 {
-    public class MusicLibrary
+    public class Song
     {
         [Key]
         public int Id { get; set; }

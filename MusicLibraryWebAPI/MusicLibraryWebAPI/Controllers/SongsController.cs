@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MusicLibraryWebAPI.Data;
+using MusicLibraryWebAPI.Migrations;
 using MusicLibraryWebAPI.Models;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,17 +41,29 @@ namespace MusicLibraryWebAPI.Controllers
 
         // POST api/<MusicLibrariesController>
         [HttpPost]
-        public IActionResult Post([FromBody] Song musicLibrary)
+        public IActionResult Post([FromBody] Song song)
         {
-            _context.MusicLibraries.Add(musicLibrary);
+            _context.MusicLibraries.Add(song);
             _context.SaveChanges();
-            return StatusCode(201, musicLibrary);
+            return StatusCode(201, song);
         }
 
         // PUT api/<MusicLibrariesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Song song)
         {
+            Song updatedSong = _context.MusicLibraries.Find(id);
+
+            if(updatedSong == null)
+            {
+                return NotFound();
+            }
+            song.Title = updatedSong.Title;
+            song.Artist = updatedSong.Artist;
+            song.Album = updatedSong.Album;
+            song.ReleaseDate = updatedSong.ReleaseDate;
+            song.Genre = updatedSong.Genre;
+            return Ok(song); 
         }
 
         // DELETE api/<MusicLibrariesController>/5

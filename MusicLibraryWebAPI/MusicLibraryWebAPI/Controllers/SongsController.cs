@@ -20,7 +20,7 @@ namespace MusicLibraryWebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/<MusicLibraries>
+        // GET All api/<MusicLibraries>     #1
         [HttpGet]
         public IActionResult Get()
         {
@@ -28,7 +28,7 @@ namespace MusicLibraryWebAPI.Controllers
             return Ok(songs);
         }
 
-        // GET api/<MusicLibraries>/5
+        // GET api/<MusicLibraries>/5      #2
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -41,7 +41,7 @@ namespace MusicLibraryWebAPI.Controllers
             return Ok(song);
         }
 
-        // POST api/<MusicLibrariesController>
+        // POST api/<MusicLibrariesController>       #3
         [HttpPost]
         public IActionResult Post([FromBody] Song song)
         {
@@ -50,7 +50,7 @@ namespace MusicLibraryWebAPI.Controllers
             return StatusCode(201, song);
         }
 
-        // PUT api/<MusicLibrariesController>/5
+        // PUT api/<MusicLibrariesController>/5        #4
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Song song)
         {
@@ -70,7 +70,7 @@ namespace MusicLibraryWebAPI.Controllers
             return Ok(song); 
         }
 
-        // DELETE api/<MusicLibrariesController>/5
+        // DELETE api/<MusicLibrariesController>/5        #5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

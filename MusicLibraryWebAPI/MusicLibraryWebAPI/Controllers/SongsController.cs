@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MusicLibraryWebAPI.Data;
 using MusicLibraryWebAPI.Migrations;
 using MusicLibraryWebAPI.Models;
@@ -71,8 +72,16 @@ namespace MusicLibraryWebAPI.Controllers
 
         // DELETE api/<MusicLibrariesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var song = _context.MusicLibraries.Find(id);
+            if(song == null)
+            {
+                return NotFound();
+            }
+            _context.MusicLibraries.Remove(song);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }

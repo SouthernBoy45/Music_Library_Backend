@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using MusicLibraryWebAPI.Data;
+using MusicLibraryWebAPI.Extensions;
 
 namespace MusicLibraryWebAPI
 {
@@ -11,7 +12,7 @@ namespace MusicLibraryWebAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.ConfigureCors();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +27,7 @@ namespace MusicLibraryWebAPI
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableSensitiveDataLogging()
             .EnableDetailedErrors());
+            
 
             var app = builder.Build();
 
@@ -37,7 +39,7 @@ namespace MusicLibraryWebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
 
